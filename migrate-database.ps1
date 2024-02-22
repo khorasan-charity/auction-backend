@@ -1,0 +1,1 @@
+dotnet run --project Mahak.Auction --migrate-database
