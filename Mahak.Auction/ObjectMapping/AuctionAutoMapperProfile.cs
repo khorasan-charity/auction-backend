@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
+using Mahak.Auction.Entities.GiftCards;
 using Mahak.Auction.Entities.Payments;
 using Mahak.Auction.Entities.Subjects;
+using Mahak.Auction.Services.Dtos.GiftCards;
 using Mahak.Auction.Services.Dtos.Payments;
 using Mahak.Auction.Services.Dtos.Subjects;
 
@@ -15,5 +17,8 @@ public class AuctionAutoMapperProfile : Profile
 
         CreateMap<Payment, PaymentDto>();
         CreateMap<CreateUpdatePaymentInputDto, Payment>();
+        
+        CreateMap<GiftCard, GiftCardDto>();
+        CreateMap<CreateUpdateGiftCardInputDto, GiftCard>();
     }
 }

@@ -43,6 +43,7 @@
     <Content Include="Auction.db">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Remove="wwwroot\wwwroot.zip" />
   </ItemGroup>
 
   <ItemGroup>

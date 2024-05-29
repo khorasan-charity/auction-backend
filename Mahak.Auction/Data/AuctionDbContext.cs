@@ -1,4 +1,5 @@
-﻿using Mahak.Auction.Entities.Payments;
+﻿using Mahak.Auction.Entities.GiftCards;
+using Mahak.Auction.Entities.Payments;
 using Mahak.Auction.Entities.Subjects;
 using Microsoft.EntityFrameworkCore;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
@@ -11,6 +12,7 @@ public class AuctionDbContext : AbpDbContext<AuctionDbContext>
 {
     public DbSet<Subject> Subjects { get; set; }
     public DbSet<Payment> Payments { get; set; }
+    public DbSet<GiftCard> GiftCards { get; set; }
     
     public AuctionDbContext(DbContextOptions<AuctionDbContext> options)
         : base(options)
@@ -47,6 +49,25 @@ public class AuctionDbContext : AbpDbContext<AuctionDbContext>
             b.Property(x => x.Name)
                 .IsRequired(false);
             b.Property(x => x.Amount)
+                .IsRequired();
+        });
+        
+        builder.Entity<GiftCard>(b =>
+        {
+            b.ToTable("GiftCards");
+            b.ConfigureByConvention();
+
+            b.Property(x => x.Code)
+                .IsRequired();
+            b.Property(x => x.InitialCreditAmount)
+                .IsRequired();
+            b.Property(x => x.RemainedCreditAmount)
+                .IsRequired();
+            b.Property(x => x.ExpirationTime)
+                .IsRequired(false);
+            b.Property(x => x.CheckInCount)
+                .IsRequired();
+            b.Property(x => x.IsEnabled)
                 .IsRequired();
         });
     }
