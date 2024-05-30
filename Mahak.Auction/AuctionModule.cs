@@ -4,6 +4,7 @@ using Mahak.Auction.Hubs;
 using Volo.Abp;
 using Volo.Abp.Uow;
 using Volo.Abp.AspNetCore.Mvc;
+using Volo.Abp.AspNetCore.Mvc.AntiForgery;
 using Volo.Abp.AspNetCore.Serilog;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.Autofac;
@@ -13,6 +14,8 @@ using Volo.Abp.EntityFrameworkCore.Sqlite;
 using Volo.Abp.Modularity;
 using Volo.Abp.Swashbuckle;
 using Volo.Abp.AspNetCore.SignalR;
+using Volo.Abp.SettingManagement;
+using Volo.Abp.SettingManagement.EntityFrameworkCore;
 
 namespace Mahak.Auction;
 
@@ -25,7 +28,8 @@ namespace Mahak.Auction;
     typeof(AbpSwashbuckleModule),
     typeof(AbpAspNetCoreSerilogModule),
     typeof(AbpAspNetCoreSignalRModule),
-
+    typeof(AbpSettingManagementApplicationModule),
+    typeof(AbpSettingManagementEntityFrameworkCoreModule),
     // Audit logging module packages
     typeof(AbpAuditLoggingEntityFrameworkCoreModule)
 )]
@@ -44,6 +48,10 @@ public class AuctionModule : AbpModule
         Configure<AbpAspNetCoreMvcOptions>(options =>
         {
             options.ConventionalControllers.Create(typeof(AuctionModule).Assembly);
+        });
+        Configure<AbpAntiForgeryOptions>(options =>
+        {
+            options.AutoValidate = false;
         });
     }
 

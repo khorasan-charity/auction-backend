@@ -255,7 +255,6 @@ paket-files/
 # Auction
 Mahak.Auction/Logs/*
 
-*.db
 *.db-shm
 *.db-wal
 

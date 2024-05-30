@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore.Modeling;
+using Volo.Abp.SettingManagement.EntityFrameworkCore;
 
 namespace Mahak.Auction.Data;
 
@@ -13,7 +14,7 @@ public class AuctionDbContext : AbpDbContext<AuctionDbContext>
     public DbSet<Subject> Subjects { get; set; }
     public DbSet<Payment> Payments { get; set; }
     public DbSet<GiftCard> GiftCards { get; set; }
-    
+
     public AuctionDbContext(DbContextOptions<AuctionDbContext> options)
         : base(options)
     {
@@ -24,6 +25,7 @@ public class AuctionDbContext : AbpDbContext<AuctionDbContext>
         base.OnModelCreating(builder);
 
         /* Include modules to your migration db context */
+        builder.ConfigureSettingManagement();
         builder.ConfigureAuditLogging();
 
         builder.Entity<Subject>(b =>
