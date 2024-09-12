@@ -19,6 +19,21 @@ public class SettingsAppService(ISettingManager settingManager) : ApplicationSer
         return JsonSerializer.Deserialize<JsonElement>(settingsJson, JsonSerializerOptions);
     }
 
+    public async Task<JsonElement> SetAsync(string key, string value)
+    {
+        var settingsJson = await settingManager.GetOrNullGlobalAsync(AuctionSettings.GlobalSettings);
+        var settings = JsonSerializer.Deserialize<Dictionary<string, object?>>(settingsJson, JsonSerializerOptions);
+        if (settings != null)
+        {
+            settings[key] = value;
+        }
+
+        await settingManager.SetGlobalAsync(AuctionSettings.GlobalSettings,
+            JsonSerializer.Serialize(settings, JsonSerializerOptions));
+
+        return await GetSettingsAsync();
+    }
+
     public async Task<JsonElement> UpdateSettingsAsync(JsonElement content)
     {
         await settingManager.SetGlobalAsync(AuctionSettings.GlobalSettings, content.GetRawText());

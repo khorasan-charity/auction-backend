@@ -15,13 +15,19 @@ public class PaymentAppService(IRepository<Payment, int> repository, IHubContext
     Payment,
     PaymentDto,
     int,
-    PagedResultRequestDto,
+    PagedAndSortedResultRequestDto,
     CreateUpdatePaymentInputDto>(repository)
 {
     public async Task<long> GetTotalAsync()
     {
         var q = await Repository.GetQueryableAsync();
         return await AsyncExecuter.SumAsync(q, x => x.Amount);
+    }
+    
+    public async Task<long> GetContributionCountAsync()
+    {
+        var q = await Repository.GetQueryableAsync();
+        return await AsyncExecuter.CountAsync(q);
     }
 
     public async Task<IRemoteStreamContent> GetExportExcelAsync()
