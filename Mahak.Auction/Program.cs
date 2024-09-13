@@ -13,10 +13,10 @@ public static class Program
 #if DEBUG
             .MinimumLevel.Debug()
 #else
-            .MinimumLevel.Information()
+            .MinimumLevel.Fatal()
 #endif
-            .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
-            .MinimumLevel.Override("Microsoft.EntityFrameworkCore", LogEventLevel.Warning)
+            // .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
+            // .MinimumLevel.Override("Microsoft.EntityFrameworkCore", LogEventLevel.Warning)
             .Enrich.FromLogContext()
             .WriteTo.Async(c => c.File("Logs/logs.txt"))
             .WriteTo.Async(c => c.Console());
